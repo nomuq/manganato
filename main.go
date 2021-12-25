@@ -19,10 +19,19 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.RemoveTrailingSlash())
 
 	searcher := nato.NewSearcher()
 
 	// Routes
+	e.GET("/", func(c echo.Context) error {
+		mangas, err := searcher.SearchLatestUpdatedManga()
+		if err != nil {
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, mangas)
+	})
+
 	e.GET("/manga/:id", func(c echo.Context) error {
 		id := c.Param("id")
 		if id == "" {
