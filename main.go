@@ -44,6 +44,24 @@ func main() {
 		return c.JSON(http.StatusOK, manga)
 	})
 
+	e.GET("/manga/:id/chapter/:ch", func(c echo.Context) error {
+		id := c.Param("id")
+		if id == "" {
+			return c.JSON(http.StatusBadRequest, "id is required")
+		}
+		ch := c.Param("ch")
+		if ch == "" {
+			return c.JSON(http.StatusBadRequest, "chapter is required")
+		}
+
+		chapter, err := searcher.ReadMangaChapter(id, ch)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
+
+		return c.JSON(http.StatusOK, chapter)
+	})
+
 	// Start server
 	e.Logger.Fatal(e.Start(":" + port))
 }
