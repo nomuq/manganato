@@ -59,7 +59,16 @@ func main() {
 			return c.JSON(http.StatusInternalServerError, err.Error())
 		}
 
-		return c.JSON(http.StatusOK, chapter)
+		if chapter == nil {
+			return c.JSON(http.StatusNotFound, "chapter not found")
+		}
+
+		var images []string
+		for _, img := range *chapter {
+			images = append(images, img.ImageURL)
+		}
+
+		return c.JSON(http.StatusOK, images)
 	})
 
 	// Start server
