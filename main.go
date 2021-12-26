@@ -1,10 +1,10 @@
 package main
 
 import (
+	"manganato/manganatoapi"
 	"net/http"
 	"os"
 
-	nato "github.com/kaikaew13/manganato-api"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -21,7 +21,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(middleware.RemoveTrailingSlash())
 
-	searcher := nato.NewSearcher()
+	searcher := manganatoapi.NewSearcher()
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {

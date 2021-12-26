@@ -4,7 +4,7 @@ module manganato
 go 1.17
 
 require (
-	github.com/kaikaew13/manganato-api v0.0.0-20210803121741-ecbb57ee1f03
+	github.com/gocolly/colly v1.2.0
 	github.com/labstack/echo/v4 v4.6.1
 )
 
@@ -15,7 +15,6 @@ require (
 	github.com/antchfx/xmlquery v1.3.6 // indirect
 	github.com/antchfx/xpath v1.1.10 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.3.1 // indirect
