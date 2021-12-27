@@ -32,6 +32,18 @@ func main() {
 		return c.JSON(http.StatusOK, mangas)
 	})
 
+	e.GET("/search", func(c echo.Context) error {
+		name := c.QueryParam("name")
+		if name == "" {
+			return c.String(http.StatusBadRequest, "name is required")
+		}
+		mangas, err := searcher.SearchManga(name)
+		if err != nil {
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, mangas)
+	})
+
 	e.GET("/manga/:id", func(c echo.Context) error {
 		id := c.Param("id")
 		if id == "" {

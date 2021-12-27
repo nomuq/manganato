@@ -29,6 +29,8 @@ func getMangaListHelper(url string) []Manga {
 		m.Name = h.ChildText(".item-right a.item-title")
 		m.Updated = h.ChildText(".item-right span.item-author+span")
 
+		m.Image = h.ChildAttr(".img-loading", "src")
+
 		mgs = append(mgs, m)
 	})
 
