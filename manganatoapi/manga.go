@@ -39,6 +39,26 @@ func getLatestUpdatedManga() []Manga {
 		m.Author.Name = h.ChildText(".content-homepage-item-right .item-author")
 		m.Image = h.ChildAttr(".img-loading", "src")
 
+		// h.child(".content-homepage-item-right .item-chapter")
+		// get chapters
+
+		h.ForEach(".content-homepage-item-right .item-chapter", func(_ int, el *colly.HTMLElement) {
+			ch := Chapter{}
+			ch.getID(el.ChildAttr("a", "href"))
+			ch.ChapterName = el.ChildText("a")
+			ch.Views = el.ChildText("span")
+			ch.Uploaded = el.ChildText("span")
+
+			ch.MangaID = m.ID
+			ch.Uploaded = el.ChildText("i")
+
+			m.Chapters = append(m.Chapters, ch)
+		})
+
+		// m.Chapters = append(m.Chapters, Chapter{
+		// 	// Name: h.ChildText(".content-homepage-item-right .item-chapter"),
+		// })
+
 		mgs = append(mgs, m)
 	})
 
